@@ -1,0 +1,421 @@
+﻿<UserControl
+    x:Class="WpfService.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ctrl="clr-namespace:WpfService.Controls"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+    xmlns:views="clr-namespace:WpfService.Views"
+    xmlns:ViewModels="clr-namespace:WpfService.ViewModels" 
+    xmlns:models="clr-namespace:WpfService.Models" 
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:WpfService"
+    mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="1024">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <dx:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+            <!--<BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>-->
+            
+            <!--<Style x:Key="RoundColoredButton" TargetType="Button">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="10, 5"/>
+                <Setter Property="Margin" Value="30"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="ButtonBorder"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="15">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center"
+                                                  Content="{TemplateBinding Content}"
+                                                  Margin="{TemplateBinding Padding}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.8"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.6"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>-->
+
+            <Style x:Key="HomeTabRadioStyle" TargetType="RadioButton">
+                <Setter Property="Height" Value="70"/>
+                <Setter Property="Margin" Value="0,0,10,0"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Border x:Name="Bd"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="16"
+                        Padding="16,0"
+                        SnapsToDevicePixels="True">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <!-- AppColors.tabActive -->
+                                    <Setter TargetName="Bd" Property="Background" Value="#FF21272A"/>
+                                    <!-- AppColors.tabActiveFont -->
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                </Trigger>
+
+                                <!--<Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Bd" Property="Background" Value="#11000000"/>
+                                </Trigger>-->
+
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.4"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="MainButtonStyle" TargetType="{x:Type dx:SimpleButton}">
+                <!--<Setter Property="Background" Value="#FF007ACC"/>
+                <Setter Property="Foreground" Value="White"/>-->
+                <Setter Property="Background" Value="White"/>
+                <!--<Setter Property="FontFamily" Value="Roboto"/>
+                <Setter Property="FontSize" Value="16"/>-->
+                <!--<Setter Property="FontWeight" Value="Bold"/>-->
+                <Setter Property="MinWidth" Value="100"/>
+                <Setter Property="MaxWidth" Value="500"/>
+                <Setter Property="MinHeight" Value="50"/>
+                <Setter Property="MaxHeight" Value="300"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="BorderBrush" Value="#FF707070"/>
+                <Setter Property="Margin" Value="8"/>
+                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="Opacity" Value="1.0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type dx:SimpleButton}">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    Opacity="{TemplateBinding Opacity}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Opacity" Value="0.8"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Opacity" Value="0.6"/>
+                    </Trigger>
+
+                                <!-- ✅ 인덱스별 Background (ItemsControl.AlternationIndex) -->
+                    <DataTrigger 
+                        Binding="{Binding (ItemsControl.AlternationIndex), 
+                        RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
+                        Value="0">
+                        <!--<Setter Property="Background" Value="#FF007ACC"/>-->
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect 
+                                    Color="#FF007ACC"    
+                                    BlurRadius="20"    
+                                    ShadowDepth="0"
+                                    Opacity="0.7"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger 
+                        Binding="{Binding (ItemsControl.AlternationIndex),
+                        RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
+                        Value="1">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect 
+                                    Color="DarkOrange"    
+                                    BlurRadius="20"    
+                                    ShadowDepth="0"
+                                    Opacity="0.7"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger 
+                        Binding="{Binding (ItemsControl.AlternationIndex),        
+                        RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
+                        Value="2">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect 
+                                    Color="MediumSeaGreen"    
+                                    BlurRadius="20"    
+                                    ShadowDepth="0"
+                                    Opacity="0.7"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger 
+                        Binding="{Binding (ItemsControl.AlternationIndex),   
+                        RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
+                        Value="3">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect 
+                                    Color="MediumPurple"    
+                                    BlurRadius="20"    
+                                    ShadowDepth="0"
+                                    Opacity="0.7"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger 
+                        Binding="{Binding (ItemsControl.AlternationIndex),    
+                        RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
+                        Value="4">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect 
+                                    Color="DeepPink"    
+                                    BlurRadius="20"    
+                                    ShadowDepth="0"
+                                    Opacity="0.7"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger 
+                        Binding="{Binding (ItemsControl.AlternationIndex),
+                        RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
+                        Value="5">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect 
+                                    Color="DarkSlateGray"    
+                                    BlurRadius="20"    
+                                    ShadowDepth="0"
+                                    Opacity="0.7"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="IconNavButtonStyle" TargetType="{x:Type dx:SimpleButton}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Margin" Value="8,0"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="GlyphAlignment" Value="Top"/>
+                <Setter Property="GlyphWidth" Value="52"/>
+                <Setter Property="GlyphHeight" Value="52"/>
+                <Setter Property="Width" Value="120"/>
+                <Setter Property="Height" Value="90"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="Roboto"/>
+            </Style>
+        </Grid.Resources>
+
+        <DockPanel Grid.Row="0" Margin="8" LastChildFill="False">
+            <ctrl:BackButton Command="{Binding BackCommand}"/>
+
+            <ctrl:ClockControl DockPanel.Dock="Right"
+                    DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=dx:ThemedWindow}}"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="8"
+                    Panel.ZIndex="999"/>
+        </DockPanel>
+
+        <Grid Grid.Row="1" Background="#FFF0F4FA" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- DNA -->
+            <RadioButton Grid.Column="0"
+                 Content="DNA"
+                 GroupName="HomeTabs"
+                 Style="{StaticResource HomeTabRadioStyle}"
+                 IsChecked="{Binding SelectedTab, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=dna}" />
+
+            <!-- Proteins -->
+            <RadioButton Grid.Column="1"
+                 Content="Proteins"
+                 GroupName="HomeTabs"
+                 Style="{StaticResource HomeTabRadioStyle}"
+                 IsChecked="{Binding SelectedTab, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=proteins}" />
+
+            <!-- Cuvette -->
+            <RadioButton Grid.Column="2"
+                 Content="Cuvette"
+                 GroupName="HomeTabs"
+                 Style="{StaticResource HomeTabRadioStyle}"
+                 IsChecked="{Binding SelectedTab, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=cuvette}" />
+        </Grid>
+
+
+        <Grid Grid.Row="2">
+
+            <ItemsControl ItemsSource="{Binding SelectedAssays}" AlternationCount="6">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <!-- 2행 3열 고정. 아이템 개수 늘면 다음 줄로 넘어감 -->
+                        <UniformGrid Rows="2" Columns="3"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <dx:SimpleButton
+                            Style="{StaticResource MainButtonStyle}"
+                            Margin="8"
+                            CornerRadius="16"
+                            Foreground="White"
+                            Command="{Binding DataContext.ChartCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            CommandParameter="{Binding}">
+                            <dx:SimpleButton.Content>
+                                <StackPanel>
+                                    <Image Width="64" Height="64" Margin="8"
+                                           Source="{Binding Image}"/>
+                                    <TextBlock Margin="8"
+                                               FontFamily="Roboto"
+                                               FontSize="18"
+                                               Foreground="Black" 
+                                               HorizontalAlignment="Center"
+                                               Text="{Binding Label}"/>
+                                </StackPanel>
+                            </dx:SimpleButton.Content>
+                            <!--<dx:SimpleButton.Effect>
+                                <DropShadowEffect 
+                                    BlurRadius="20"
+                                    ShadowDepth="10"  
+                                    Opacity="0.7"
+                                    Color="#FF007ACC"/>
+                            </dx:SimpleButton.Effect>-->
+
+                        </dx:SimpleButton>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+
+            <!--<Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <dx:SimpleButton Grid.Row="0" Grid.Column="0" Style="{StaticResource MainButtonStyle}" 
+                             Content="dsDNA"
+                             Background="Green" Foreground="White"
+                             Margin="30" CornerRadius="16"
+                             Command="{Binding ChartCommand}"/>
+
+            <dx:SimpleButton Content="버튼 2" Grid.Row="0" Grid.Column="1" Style="{StaticResource MainButtonStyle}" 
+                              Background="Red" Foreground="White" Margin="30" CornerRadius="16"/>
+
+            <dx:SimpleButton Content="버튼 3" Grid.Row="0" Grid.Column="2" Style="{StaticResource MainButtonStyle}" 
+                              Background="Blue" Foreground="White" Margin="30" CornerRadius="16"/>
+
+            <dx:SimpleButton Content="버튼 4" Grid.Row="1" Grid.Column="0" Style="{StaticResource MainButtonStyle}" 
+                              Background="Orange" Foreground="White" Margin="30" CornerRadius="16"/>
+
+            <dx:SimpleButton Content="버튼 5" Grid.Row="1" Grid.Column="1" Style="{StaticResource MainButtonStyle}" 
+                              Background="Teal" Foreground="White" Margin="30" CornerRadius="16"/>
+
+            <dx:SimpleButton Content="버튼 6" Grid.Row="1" Grid.Column="2" Style="{StaticResource MainButtonStyle}" 
+                              Background="DarkSlateGray" Foreground="White" Margin="30" CornerRadius="16"/>-->
+
+        </Grid>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+
+            <dx:SimpleButton
+                Style="{StaticResource IconNavButtonStyle}"
+                Glyph="{dx:DXImage 'SvgImages/Spreadsheet/CreateScatterChartSmoothLines.svg'}"
+                Content="Spectrometer"
+                Command="{Binding SpectrometerCommand}"
+                Visibility="{Binding Source={x:Static models:Account.Instance},    
+                            Path=IsMaster, 
+                            Converter={dxmvvm:BooleanToVisibilityConverter}}"/>
+            <dx:SimpleButton 
+                Style="{StaticResource IconNavButtonStyle}"
+                Glyph="{dx:DXImage 'SvgImages/DiagramIcons/PropertiesPanel.svg'}"
+                Content="Parameter"
+                FontSize="16"
+                Command="{Binding ParameterCommand}"      
+                Visibility="{Binding Source={x:Static models:Account.Instance},    
+                            Path=IsMaster, 
+                            Converter={dxmvvm:BooleanToVisibilityConverter}}"/>                
+            <dx:SimpleButton            
+                Style="{StaticResource IconNavButtonStyle}"
+                Glyph="{dx:DXImage 'SvgImages/Outlook Inspired/List.svg'}"
+                Content="DataViewer"
+                Command="{Binding DataCommand}"/>
+            <dx:SimpleButton            
+                Style="{StaticResource IconNavButtonStyle}"
+                Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Settings.svg'}"
+                Content="Device"
+                Command="{Binding DeviceCommand}" 
+                Visibility="{Binding Source={x:Static models:Account.Instance},    
+                            Path=IsMasterOrManager, 
+                            Converter={dxmvvm:BooleanToVisibilityConverter}}"/>
+            <dx:SimpleButton            
+                Style="{StaticResource IconNavButtonStyle}"
+                Glyph="{dx:DXImage 'SvgImages/Business Objects/BO_Audit_ChangeHistory.svg'}"
+                Content="Log"
+                Command="{Binding LogCommand}"
+                Visibility="{Binding Source={x:Static models:Account.Instance}, 
+                            Path=IsMasterOrManager, 
+                            Converter={dxmvvm:BooleanToVisibilityConverter}}"/>
+            <dx:SimpleButton            
+                Style="{StaticResource IconNavButtonStyle}"
+                Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Info.svg'}"
+                Content="Infomation"
+                Command="{Binding InformationCommand}"/>
+        </StackPanel>
+        <views:LoadingIndicatorView 
+            Grid.Row="0"
+            Grid.RowSpan="4"
+            Panel.ZIndex="999"
+            Visibility="{Binding IsLoading, Converter={dxmvvm:BooleanToVisibilityConverter}}"/>    
+    </Grid>
+</UserControl>

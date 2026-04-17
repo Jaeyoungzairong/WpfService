@@ -1,0 +1,118 @@
+﻿<dx:ThemedWindow 
+    x:Class="WpfService.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:views="clr-namespace:WpfService.Views"
+    xmlns:vm="clr-namespace:WpfService.ViewModels"
+    Title="nPro" ShowIcon="False" TitleAlignment="Center"
+    Height="600" Width="1024">
+
+    <!--<dx:ThemedWindow.DataContext>
+        <vm:ShellViewModel/>
+    </dx:ThemedWindow.DataContext>-->
+
+
+    <dxmvvm:Interaction.Behaviors>
+        <dx:DialogService 
+            Name="DialogService" 
+            DialogWindowStartupLocation="CenterOwner">
+            <dx:DialogService.DialogStyle>
+                <Style TargetType="dx:ThemedWindow">
+                    <Setter Property="ShowIcon" Value="False"/>
+                    <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+                    <Setter Property="ResizeMode" Value="NoResize"/>
+                    <Style.Resources>
+                        <!--<Style TargetType="dx:ThemedWindowDialogButtonsControl">
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        </Style>-->
+                        <Style TargetType="dx:ThemedWindowDialogButton">
+                            <Setter Property="MinWidth" Value="120"/>
+                            <Setter Property="MinHeight" Value="36"/>
+                            <Setter Property="FontFamily" Value="Roboto"/>
+                            <Setter Property="FontSize" Value="18"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding UICommand.Id, RelativeSource={RelativeSource Self}}" Value="OK">
+                                    <Setter Property="Glyph" Value="{dx:DXImage 'SvgImages/Icon Builder/Actions_Check.svg'}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding UICommand.Id, RelativeSource={RelativeSource Self}}" Value="Cancel">
+                                    <Setter Property="Glyph" Value="{dx:DXImage 'SvgImages/Icon Builder/Actions_Delete.svg'}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </dx:DialogService.DialogStyle>
+            <dx:DialogService.ViewTemplate>
+                <DataTemplate>
+                    <ContentPresenter Content="{Binding}" />
+                </DataTemplate>
+            </dx:DialogService.ViewTemplate>
+        </dx:DialogService>
+
+
+        <dx:DXMessageBoxService x:Name="MessageBoxService"/>
+    </dxmvvm:Interaction.Behaviors>
+
+    <!-- ViewModel -> View 매핑 -->
+    <dx:ThemedWindow.Resources>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+            <views:LoginView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MainViewModel}">
+            <views:MainView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RecoveryViewModel}">
+            <views:RecoveryView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ParameterViewModel}">
+            <views:ParameterView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SpectrometerViewModel}">
+            <views:SpectrometerView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DeviceViewModel}">
+            <views:DeviceView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LogViewModel}">
+            <views:LogView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DnaChartViewModel}">
+            <views:DnaChartView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:UvChartViewModel}">
+            <views:UvChartView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CuvetteChartViewModel}">
+            <views:CuvetteChartView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DataViewModel}">
+            <views:DataView/>
+        </DataTemplate>
+    </dx:ThemedWindow.Resources>
+
+    <!--<ContentControl Content="{Binding CurrentViewModel}"/>-->
+
+    <Grid>
+        <ContentControl Content="{Binding CurrentViewModel}"/>
+        
+        <ContentControl Content="{Binding OverlayViewModel}"
+                        Panel.ZIndex="1000"
+                        Visibility="{Binding IsOverlayVisible, Converter={dxmvvm:BooleanToVisibilityConverter}}"/>
+    </Grid>
+
+
+
+    <!--<Grid>
+        <ContentControl Content="{Binding CurrentViewModel}"/>
+        <TextBlock HorizontalAlignment="Right"
+           VerticalAlignment="Top"
+           Margin="12"
+           Panel.ZIndex="999"
+           Visibility="{Binding ShowClock, Converter={dxmvvm:BooleanToVisibilityConverter}}"
+           Text="{Binding NowText}"
+           FontSize="14"
+           FontWeight="SemiBold"/>
+    </Grid>-->
+</dx:ThemedWindow>

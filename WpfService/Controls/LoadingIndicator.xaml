@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="WpfService.Controls.LoadingIndicator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core">
+
+    <Grid Background="#66000000"
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch">
+
+        <dx:WaitIndicator
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Content="{Binding LoadingText}"
+            DeferedVisibility="{Binding IsLoading}"
+            FontSize="16">
+            <dx:WaitIndicator.LayoutTransform>
+                <ScaleTransform ScaleX="2.0" ScaleY="2.0"/>
+            </dx:WaitIndicator.LayoutTransform>
+        </dx:WaitIndicator>
+    </Grid>
+</UserControl>

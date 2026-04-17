@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <HostAddress>192.168.1.101</HostAddress>
+  <Port>8443</Port>
+  <RecoveryFileName>C:\RKDevTool.exe</RecoveryFileName>
+</Config>

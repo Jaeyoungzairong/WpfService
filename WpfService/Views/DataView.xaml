@@ -1,0 +1,349 @@
+﻿<UserControl x:Class="WpfService.Views.DataView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:local="clr-namespace:WpfService.Views"
+             xmlns:models="clr-namespace:WpfService.Models" 
+             xmlns:ctrl="clr-namespace:WpfService.Controls"
+             xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="900">
+
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:EventToCommand 
+            EventName="Loaded"
+            Command="{Binding LoadCommand}"/>
+    </dxmvvm:Interaction.Behaviors>
+
+    <Grid Background="#F6F7F9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="8" LastChildFill="False">
+            <ctrl:BackButton 
+                DockPanel.Dock="Left"
+                Command="{Binding BackCommand}"/>
+            <TextBlock
+                DockPanel.Dock="Left"
+                Margin="16,0"
+                Text="Data Viewer"
+                FontSize="24"
+                FontWeight="Bold"
+                VerticalAlignment="Center"/>
+            <dx:SimpleButton
+                DockPanel.Dock="Right"            
+                Glyph="{dx:DXImage 'SvgImages/Export/Export.svg'}"       
+                FontSize="16"         
+                FontFamily="Roboto"         
+                Content="Download"
+                Visibility="{Binding Source={x:Static models:Account.Instance}, Path=IsMaster, Converter={dxmvvm:BooleanToVisibilityConverter}}"
+                Command="{Binding DownloadCommand}"/>
+        </DockPanel>
+
+        <!-- ===== Top Header (Title + Actions) ===== --><!--
+        <Border Grid.Row="0" Background="White" Padding="12" BorderBrush="#E5E7EB" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                --><!-- Back + Title --><!--
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <dx:SimpleButton Content="←"
+                                      Width="36" Height="32"
+                                      Margin="0,0,10,0"
+                                      Command="{Binding BackCommand}"/>
+                    <TextBlock Text="Data Viewer"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                --><!-- Actions --><!--
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,16,0">
+                    <dx:SimpleButton Content="🗑  Delete"
+                                      Height="32"
+                                      Padding="14,0"
+                                      Margin="0,0,10,0"
+                                      Command="{Binding DeleteCommand}"/>
+                    <dx:SimpleButton Content="⤓  Export"
+                                      Height="32"
+                                      Padding="14,0"
+                                      Command="{Binding ExportCommand}"/>
+                </StackPanel>
+
+                --><!-- Clock --><!--
+                <TextBlock Grid.Column="3"
+                           Text="{Binding NowText}"
+                           Foreground="#6B7280"
+                           FontSize="14"
+                           VerticalAlignment="Center"/>
+            </Grid>
+        </Border>-->
+
+        <!-- ===== Filters Row ===== -->
+        <Border Grid.Row="1" Background="White" Padding="12" BorderBrush="#E5E7EB" BorderThickness="0,0,0,1" Margin="8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Search -->
+                <!--<dxe:SearchControl Height="36"
+                                   Margin="0,0,10,0"
+                                   SearchText="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                                   NullText="Search"/>-->
+
+                <!-- Date / Range placeholder (TextEdit로 둠) -->
+                <!--<dxe:TextEdit Grid.Column="1"
+                              Height="36"
+                              Margin="0,0,10,0"
+                              Text="{Binding DateText, UpdateSourceTrigger=PropertyChanged}"
+                              NullText="Select date / range"/>-->
+
+                <dxe:DateEdit Grid.Column="0" 
+                              EditValue="{Binding FromDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              FontSize="16"
+                              FontFamily="Roboto"
+                              HorizontalContentAlignment="Center"
+                              MinValue="2024-01-01"
+                              MaxValue="2099-12-31"
+                              ShowToday="False"
+                              ShowClearButton="False"/>
+                <TextBlock Grid.Column="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontFamily="Roboto"
+                           FontWeight="Bold"
+                           FontSize="16"
+                           Text="~"/>
+                <dxe:DateEdit Grid.Column="2" 
+                              EditValue="{Binding ToDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"              
+                              FontSize="16"
+                              FontFamily="Roboto"
+                              HorizontalContentAlignment="Center"
+                              MinValue="2024-01-01"
+                              MaxValue="2099-12-31"
+                              ShowToday="False"
+                              ShowClearButton="False"/>
+
+                <!-- Reset -->
+                <dx:SimpleButton Grid.Column="3"
+                                 Margin="20,0"
+                                 Glyph="{dx:DXImage 'SvgImages/HybridDemoIcons/Editors/HybridDemo_Search Button.svg'}"
+                                 FontSize="16"
+                                 FontFamily="Roboto"
+                                 Content="Search"
+                                 Command="{Binding SearchCommand}"/>
+
+                <TextBlock Grid.Column="4"
+                           HorizontalAlignment="Right"
+                           Margin="10,0"
+                           VerticalAlignment="Center"
+                           FontFamily="Roboto"
+                           FontSize="16"
+                           Text="Type"/>
+
+                <!-- Assay -->
+                <dxe:ComboBoxEdit Grid.Column="5"
+                                  FontSize="16"
+                                  FontFamily="Roboto"
+                                  HorizontalContentAlignment="Center"
+                                  ItemsSource="{Binding AssayOptions}"
+                                  SelectedItem="{Binding SelectedAssay}"
+                                  IsTextEditable="False"/>
+            </Grid>
+        </Border>
+
+        <!-- ===== Main Tree ===== -->
+        <Border Grid.Row="2" Margin="12" CornerRadius="10" Background="White" BorderBrush="#E5E7EB" BorderThickness="1">
+            <dxg:TreeListControl ItemsSource="{Binding DateGroups}"
+                                 AutoGenerateColumns="None"
+                                 SelectionMode="Row">
+
+                <dxg:TreeListControl.View>
+                    <dxg:TreeListView TreeDerivationMode="ChildNodesSelector" 
+                                      AutoWidth="True"
+                                      ShowIndicator="False"
+                                      ShowVerticalLines="True"
+                                      ShowHorizontalLines="True"
+                                      AllowEditing="False"
+                                      ExpandNodesOnFiltering="True"
+                                      ShowColumnHeaders="False"
+                                      RowMinHeight="56"
+                                      PreviewMouseLeftButtonDown="TreeListView_PreviewMouseLeftButtonDown">
+
+                        <dxg:TreeListView.ChildNodesSelector>
+                            <local:ExperimentChildNodesSelector/>
+                        </dxg:TreeListView.ChildNodesSelector>
+                     </dxg:TreeListView>
+                </dxg:TreeListControl.View>
+
+                <!-- 단일 컬럼: 템플릿으로 부모/자식 카드 렌더링 -->
+                <dxg:TreeListColumn>
+                    <dxg:TreeListColumn.CellTemplate>
+                        <DataTemplate>
+                            <ContentPresenter Content="{Binding RowData.Row}" />
+                        </DataTemplate>
+                    </dxg:TreeListColumn.CellTemplate>
+                </dxg:TreeListColumn>
+
+                <!-- ===== 템플릿: 부모(ExperimentDateGroup) ===== -->
+                <dxg:TreeListControl.Resources>
+
+                    <!--<SolidColorBrush
+                        x:Key="{dxgt:TreeListViewThemeKey ResourceKey=RowMarginBackgroundBrush, IsThemeIndependent=True}"
+                        Color="WhiteSmoke" />-->
+                    <!-- WhiteSmoke -->
+
+                    <!-- 부모: 날짜 + experiments count -->
+                    <HierarchicalDataTemplate DataType="{x:Type models:ExperimentDateGroup}"
+                                              ItemsSource="{Binding Experiments}">
+                        <Grid Background="WhiteSmoke">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="#111827"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Date, StringFormat='{}{0:dddd, MM/dd/yyyy}'}"/>
+
+                            <Border Grid.Column="1"
+                                    Background="#EEF2F7"
+                                    CornerRadius="14"
+                                    Padding="16,8"
+                                    Margin="8,0"
+                                    VerticalAlignment="Center">
+                                <TextBlock FontSize="16"
+                                           Foreground="#4B5563"
+                                           Text="{Binding Experiments.Count, StringFormat='{}{0} experiments'}"/>
+                            </Border>
+                        </Grid>
+                    </HierarchicalDataTemplate>
+
+                    <!-- ===== 템플릿: 자식(Experiment) ===== -->
+                    <DataTemplate DataType="{x:Type models:Experiment}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- AssayType Badge -->
+                            <Border CornerRadius="8"
+                                    BorderThickness="1"
+                                    Padding="8"
+                                    Margin="16,0"
+                                    VerticalAlignment="Center">
+
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="BorderBrush" Value="#FF4C4CFF"/>
+                                        <Setter Property="Background" Value="#1A4C4CFF"/>
+
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding AssayType}" Value="Proteins">
+                                                <Setter Property="BorderBrush" Value="#FF1ADA70"/>
+                                                <Setter Property="Background" Value="#1A1ADA70"/>
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding AssayType}" Value="Cuvette">
+                                                <Setter Property="BorderBrush" Value="#FFFFC53D"/>
+                                                <Setter Property="Background" Value="#1AFFC53D"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+
+                                <TextBlock Text="{Binding ExperimentType}"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"/>
+                            </Border>
+
+                            <!-- Main info -->
+                            <StackPanel Grid.Column="1" 
+                                        Orientation="Horizontal"
+                                        Margin="8,0"
+                                        VerticalAlignment="Center">
+                                <TextBlock FontSize="16"
+                                           FontWeight="SemiBold"
+                                           Foreground="#1F2937"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding Name}"/>
+
+                                <Border Background="#E5E7EB"
+                                        CornerRadius="16"
+                                        Padding="16,4"
+                                        Margin="16,0"
+                                        HorizontalAlignment="Left">
+                                    <TextBlock FontSize="16"
+                                               Foreground="#4B5563"
+                                               Text="{Binding MeasurementCount, StringFormat='{}{0} measurements'}"/>
+                                </Border>
+                            </StackPanel>
+
+                            <!-- Detail -->
+                            <dx:SimpleButton Grid.Column="2"
+                                    Margin="8,0"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    BorderBrush="#2563EB"
+                                    BorderThickness="0"
+                                    Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Redo.svg'}"
+                                    GlyphAlignment="Right"
+                                    GlyphWidth="16" GlyphHeight="16" GlyphToContentOffset="0"
+                                    Foreground="#2563EB"
+                                    FontSize="16"
+                                    FontWeight="Bold"
+                                    Cursor="Hand"
+                                    Content="Detail"
+                                    Command="{Binding DataContext.DetailCommand, RelativeSource={RelativeSource AncestorType=dxg:TreeListControl}}"
+                                    CommandParameter="{Binding}" />
+                            <!--<Button Grid.Column="2"
+                                    Margin="8,0"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    BorderBrush="#2563EB"
+                                    BorderThickness="1"
+                                    Foreground="#2563EB"
+                                    FontSize="16"
+                                    FontWeight="Bold"
+                                    Cursor="Hand"
+                                    Content="Detail"
+                                    Command="{Binding DataContext.ShowChartCommand, RelativeSource={RelativeSource AncestorType=dxg:TreeListControl}}"
+                                    CommandParameter="{Binding}" />-->
+                        </Grid>
+                    </DataTemplate>
+
+                </dxg:TreeListControl.Resources>
+
+            </dxg:TreeListControl>
+        </Border>
+        <ctrl:LoadingIndicator 
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Panel.ZIndex="999"
+            Visibility="{Binding IsLoading, Converter={dxmvvm:BooleanToVisibilityConverter}}"/>
+    </Grid>
+</UserControl>

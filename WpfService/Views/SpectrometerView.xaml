@@ -1,0 +1,209 @@
+﻿<UserControl x:Class="WpfService.Views.SpectrometerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxchart="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+             xmlns:ctrl="clr-namespace:WpfService.Controls" 
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:behaviors="clr-namespace:WpfService.Behaviors" 
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="1024">
+
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:EventToCommand 
+            EventName="Loaded"
+            Command="{Binding LoadCommand}"/>
+    </dxmvvm:Interaction.Behaviors>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        </Grid.Resources>
+        
+        <DockPanel Grid.Row="0" Margin="8" LastChildFill="False">
+            <ctrl:BackButton Command="{Binding BackCommand}"/>
+            <TextBlock
+                Margin="16,0"
+                Text="Spectrometer"
+                FontFamily="Roboto"
+                FontSize="24"
+                FontWeight="Bold"
+                VerticalAlignment="Center"/>
+            <dx:SimpleButton 
+                Margin="16,0"
+                Background="Transparent"
+                BorderThickness="0"
+                Glyph="{dx:DXImage 'SvgImages/RichEdit/TrackingChanges_AllMarkup.svg'}"
+                GlyphWidth="36" GlyphHeight="36"
+                Width="60" Height="40"
+                IsEnabled="{Binding IsRunning, Converter={dxmvvm:BooleanNegationConverter}}"
+                Command="{Binding ViewCommand}"/>
+            <dx:SimpleButton 
+                DockPanel.Dock="Right"
+                Margin="8,0"
+                Background="Transparent"
+                BorderThickness="0"
+                Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Settings.svg'}"
+                GlyphWidth="36" GlyphHeight="36"
+                Width="60" Height="40"
+                IsEnabled="{Binding IsRunning, Converter={dxmvvm:BooleanNegationConverter}}"
+                Command="{Binding SettingCommand}"/>
+            <dx:SimpleButton 
+                DockPanel.Dock="Right"
+                Margin="8,0"
+                Background="Transparent"
+                BorderThickness="0"
+                Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Rollback.svg'}"
+                GlyphWidth="36" GlyphHeight="36"
+                Width="60" Height="40"
+                IsEnabled="{Binding CanClear}"
+                Command="{Binding ClearCommand}"/>
+            <dx:SimpleButton 
+                DockPanel.Dock="Right"
+                FontFamily="Roboto"
+                FontSize="16"
+                Content="Capture" 
+                Glyph="{dx:DXImage 'SvgImages/Icon Builder/Electronics_Photo.svg'}"
+                Width="120" Height="40" 
+                Margin="8,0"
+                Command="{Binding CaptureCommand}"/>
+            <dx:SimpleButton 
+                DockPanel.Dock="Right"
+                FontFamily="Roboto"
+                FontSize="16"
+                Margin="8,0"
+                Width="120" Height="40"
+                IsEnabled="{Binding IsGridMode, Converter={dxmvvm:BooleanNegationConverter}}"
+                Command="{Binding ReadCommand}">
+                <dx:SimpleButton.Style>
+                    <Style TargetType="dx:SimpleButton">
+                        <Setter Property="Content" Value="Start"/>
+                        <Setter Property="Glyph" Value="pack://application:,,,/DevExpress.Images.v21.2;component/SvgImages/Arrows/Next.svg"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                                <Setter Property="Content" Value="Stop"/>
+                                <Setter Property="Glyph" Value="pack://application:,,,/DevExpress.Images.v21.2;component/SvgImages/Arrows/Stop.svg"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </dx:SimpleButton.Style>
+            </dx:SimpleButton>
+
+        </DockPanel>
+
+        <!-- 라인 차트 -->
+        <dxchart:ChartControl Grid.Row="1" CustomDrawCrosshair="Chart_CustomDrawCrosshair" Margin="8">
+            <dxchart:ChartControl.Diagram>
+                <dxchart:XYDiagram2D 
+                    EnableAxisXNavigation="True" 
+                    EnableAxisYNavigation="True">
+
+                    <dxchart:XYDiagram2D.DefaultPane>
+                        <dxchart:Pane>
+                            <dxchart:Pane.AxisXScrollBarOptions>
+                                <dxchart:ScrollBarOptions Visible="False" />
+                            </dxchart:Pane.AxisXScrollBarOptions>
+                            <dxchart:Pane.AxisYScrollBarOptions>
+                                <dxchart:ScrollBarOptions Visible="False" />
+                            </dxchart:Pane.AxisYScrollBarOptions>
+                        </dxchart:Pane>
+                    </dxchart:XYDiagram2D.DefaultPane>
+                    <dxchart:XYDiagram2D.AxisX>
+                        <dxchart:AxisX2D>
+                            <dxchart:AxisX2D.WholeRange>
+                                <dxchart:Range MinValue="200" MaxValue="1000" AutoSideMargins="False"/>
+                            </dxchart:AxisX2D.WholeRange>
+
+                            <!--<dxchart:AxisX2D.VisualRange>
+                                <dxchart:Range MinValue="200" MaxValue="1000" AutoSideMargins="False" />
+                            </dxchart:AxisX2D.VisualRange>-->
+                            <!--<dxchart:AxisX2D.Label>
+                                <dxchart:AxisLabel TextPattern="F2"/>
+                            </dxchart:AxisX2D.Label>-->
+
+                        </dxchart:AxisX2D>
+                        
+                    </dxchart:XYDiagram2D.AxisX>
+
+                    <!--<dxchart:XYDiagram2D.AxisY>
+                        <dxchart:AxisY2D>
+                            <dxchart:AxisY2D.Label>
+                                <dxchart:AxisLabel TextPattern="F2"/>
+                            </dxchart:AxisY2D.Label>
+                        </dxchart:AxisY2D>
+                    </dxchart:XYDiagram2D.AxisY>-->
+
+                    <dxchart:XYDiagram2D.Series>
+                        <dxchart:LineSeries2D 
+                            DataSource="{Binding Data}"
+                            ArgumentDataMember="X"
+                            ValueDataMember="Y"     
+                            DisplayName="Data"
+                            BorderThickness="10"
+                            Brush="#FF007ACC">
+                            <dxchart:LineSeries2D.LineStyle>
+                                <dxchart:LineStyle Thickness="2"/>
+                            </dxchart:LineSeries2D.LineStyle>
+                        </dxchart:LineSeries2D>
+
+                        <dxchart:LineSeries2D 
+                            DataSource="{Binding Capture}"
+                            ArgumentDataMember="X"
+                            ValueDataMember="Y"     
+                            DisplayName="Data"
+                            Brush="DarkOrange">
+                            <dxchart:LineSeries2D.LineStyle>
+                                <dxchart:LineStyle Thickness="2"/>
+                            </dxchart:LineSeries2D.LineStyle>
+                        </dxchart:LineSeries2D>
+                    </dxchart:XYDiagram2D.Series>
+                </dxchart:XYDiagram2D>
+            </dxchart:ChartControl.Diagram>
+
+        </dxchart:ChartControl>
+
+        <dxg:GridControl Grid.Row="1" Margin="8"
+                         SelectionMode="Cell"
+                         FontSize="16"
+                         AutoGenerateColumns="None"
+                         ItemsSource="{Binding Table}"
+                         Visibility="{Binding IsGridMode, Converter={dxmvvm:BooleanToVisibilityConverter}}">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="Index" Header="No." HorizontalHeaderContentAlignment="Center" Width="100"/>
+                <dxg:GridColumn FieldName="Wave" Header="Wavelngth" HorizontalHeaderContentAlignment="Center" Width="150"/>
+                <dxg:GridColumn FieldName="Data" Header="Capture"  HorizontalHeaderContentAlignment="Center" Width="150"/>
+            </dxg:GridControl.Columns>
+
+            <dxg:GridControl.View>
+                <dxg:TableView   
+                    AutoWidth="False"
+                    AllowEditing="False"     
+                    ShowIndicator="False"   
+                    ShowGroupPanel="False"
+                    AllowSorting="False"     
+                    ShowFilterPanelMode="Never"
+                    AllowColumnFiltering="False"   
+                    RowMinHeight="30"
+                    HeaderPanelMinHeight="30"
+                    AllowColumnMoving="False"
+                    ShowGridMenu="TableView_ShowGridMenu"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+
+        <ctrl:LoadingIndicator 
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Panel.ZIndex="999"
+            Visibility="{Binding IsLoading, Converter={dxmvvm:BooleanToVisibilityConverter}}"/>
+    </Grid>
+    
+</UserControl>
+

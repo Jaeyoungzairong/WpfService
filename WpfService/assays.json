@@ -1,0 +1,203 @@
+{
+  "dna": [
+    {
+      "label": "dsDNA",
+      "assayType": "dna",
+      "assaySubType": "dsDNA",
+      "image": "pack://application:,,,/Images/ds-dna.png",
+      "rangeFrom": 220,
+      "rangeTo": 340,
+      "peakWL": 260,
+      "mainWL": 280,
+      "secondaryWL": 230,
+      "extinctionCoefficient": 50.0,
+      "unit": "ng/uL"
+    },
+    {
+      "label": "ssDNA",
+      "assayType": "dna",
+      "assaySubType": "ssDNA",
+      "image": "pack://application:,,,/Images/ss-dna.png",
+      "rangeFrom": 220,
+      "rangeTo": 340,
+      "peakWL": 260,
+      "mainWL": 280,
+      "secondaryWL": 230,
+      "extinctionCoefficient": 33.0,
+      "unit": "ng/uL"
+    },
+    {
+      "label": "RNA",
+      "assayType": "dna",
+      "assaySubType": "RNA",
+      "image": "pack://application:,,,/Images/rna.png",
+      "rangeFrom": 220,
+      "rangeTo": 340,
+      "peakWL": 260,
+      "mainWL": 280,
+      "secondaryWL": 230,
+      "extinctionCoefficient": 40.0,
+      "unit": "ng/uL"
+    },
+    {
+      "label": "Custom Factor",
+      "assayType": "dna",
+      "assaySubType": "CustomFactor",
+      "image": "pack://application:,,,/Images/custom-factor.png",
+      "rangeFrom": 220,
+      "rangeTo": 340,
+      "peakWL": 260,
+      "mainWL": 280,
+      "secondaryWL": 230,
+      "extinctionCoefficient": 50.0,
+      "unit": "ng/mL"
+    },
+    {
+      "label": "Oligo DNA",
+      "assayType": "dna",
+      "assaySubType": "OligoDNA",
+      "image": "pack://application:,,,/Images/oligo-dna.png",
+      "rangeFrom": 220,
+      "rangeTo": 340,
+      "peakWL": 260,
+      "mainWL": 280,
+      "secondaryWL": 230,
+      "extinctionCoefficient": 25.0,
+      "unit": "ng/uL"
+    }
+  ],
+  "proteins": [
+    {
+      "label": "Bradford",
+      "assayType": "proteins",
+      "assaySubType": "Bradford",
+      "image": "pack://application:,,,/Images/bradford.png",
+      "rangeFrom": 200,
+      "rangeTo": 800,
+      "peakWL": 595,
+      "mainWL": 0,
+      "secondaryWL": 0,
+      "extinctionCoefficient": 1.0,
+      "unit": "mg/mL"
+    },
+    {
+      "label": "Lowry",
+      "assayType": "proteins",
+      "assaySubType": "Lowry",
+      "image": "pack://application:,,,/Images/lowry.png",
+      "rangeFrom": 200,
+      "rangeTo": 800,
+      "peakWL": 650,
+      "mainWL": 0,
+      "secondaryWL": 0,
+      "extinctionCoefficient": 50.0,
+      "unit": "mg/mL"
+    },
+    {
+      "label": "BCA",
+      "assayType": "proteins",
+      "assaySubType": "BCA",
+      "image": "pack://application:,,,/Images/bca.png",
+      "rangeFrom": 200,
+      "rangeTo": 800,
+      "peakWL": 563,
+      "mainWL": 0,
+      "secondaryWL": 0,
+      "extinctionCoefficient": 0.0,
+      "unit": "mg/mL"
+    },
+    {
+      "label": "Biuret",
+      "assayType": "proteins",
+      "assaySubType": "Biuret",
+      "image": "pack://application:,,,/Images/biuret.png",
+      "rangeFrom": 200,
+      "rangeTo": 800,
+      "peakWL": 540,
+      "mainWL": 0,
+      "secondaryWL": 0,
+      "extinctionCoefficient": 0.0,
+      "unit": "ng/mL"
+    },
+    {
+      "label": "Others",
+      "assayType": "proteins",
+      "assaySubType": "Others",
+      "image": "pack://application:,,,/Images/others.png",
+      "rangeFrom": 200,
+      "rangeTo": 800,
+      "peakWL": 0,
+      "mainWL": 0,
+      "secondaryWL": 0,
+      "extinctionCoefficient": 0.0,
+      "unit": "mg/mL"
+    },
+    {
+      "label": "Direct UV",
+      "assayType": "proteins",
+      "assaySubType": "DirectUV",
+      "image": "pack://application:,,,/Images/direct-uv.png",
+      "rangeFrom": 220,
+      "rangeTo": 340,
+      "peakWL": 280,
+      "mainWL": 260,
+      "secondaryWL": 230,
+      "extinctionCoefficient": 1.0,
+      "unit": "mg/mL"
+    }
+  ],
+  "cuvette": [
+    {
+      "label": "Spectrum",
+      "assayType": "cuvette",
+      "assaySubType": "Spectrum",
+      "image": "pack://application:,,,/Images/spectrum.png",
+      "rangeFrom": 200,
+      "rangeTo": 800,
+      "peakWL": 0,
+      "mainWL": 0,
+      "secondaryWL": 0,
+      "extinctionCoefficient": 0.0,
+      "unit": "mg/mL"
+    },
+    {
+      "label": "Kinetic",
+      "assayType": "cuvette",
+      "assaySubType": "Kinetic",
+      "image": "pack://application:,,,/Images/kinetic.png",
+      "rangeFrom": 200,
+      "rangeTo": 800,
+      "peakWL": 0,
+      "mainWL": 0,
+      "secondaryWL": 0,
+      "extinctionCoefficient": 0.0,
+      "unit": "mg/mL"
+    },
+    {
+      "label": "End-Point",
+      "assayType": "cuvette",
+      "assaySubType": "EndPoint",
+      "image": "pack://application:,,,/Images/end-point.png",
+      "rangeFrom": 200,
+      "rangeTo": 800,
+      "peakWL": 0,
+      "mainWL": 0,
+      "secondaryWL": 0,
+      "extinctionCoefficient": 0.0,
+      "unit": "mg/mL"
+    },
+    {
+      "label": "OD600",
+      "assayType": "cuvette",
+      "assaySubType": "OD600",
+      "image": "pack://application:,,,/Images/od600.png",
+      "rangeFrom": 200,
+      "rangeTo": 800,
+      "peakWL": 600,
+      "mainWL": 0,
+      "secondaryWL": 0,
+      "extinctionCoefficient": 0.0,
+      "unit": "mg/mL"
+    }
+  ]
+}

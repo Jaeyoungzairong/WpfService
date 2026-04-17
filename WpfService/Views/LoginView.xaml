@@ -1,0 +1,178 @@
+﻿<UserControl
+    x:Class="WpfService.Views.LoginView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+    xmlns:ctrl="clr-namespace:WpfService.Controls"
+    mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="1024">
+
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:EventToCommand 
+            EventName="Loaded"
+            Command="{Binding LoadCommand}"/>
+    </dxmvvm:Interaction.Behaviors>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <dx:DXImage 
+                Stretch="UniformToFill"
+                StretchDirection="Both"
+                Source="pack://application:,,,/Images/login_background.png"/>
+            <TextBlock 
+                Text="Welcome"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontFamily="Roboto"
+                FontSize="36"
+                FontWeight="Bold"
+                Foreground="White"/>
+            <TextBlock 
+                Margin="16"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                FontFamily="Roboto"
+                FontSize="18"
+                FontWeight="Bold"
+                Foreground="White"
+                Text="{Binding Version}"/>
+            <dx:SimpleButton
+                Margin="16"
+                Background="Transparent"
+                BorderThickness="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Width="30" Height="30"
+                IsEnabled="{Binding IsConnected, Converter={dxmvvm:BooleanNegationConverter}}"
+                Command="{Binding DebugCommand}"/>
+        </Grid>
+
+        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+            <dx:DXImage 
+                Margin="50,16"
+                Height="45"
+                Source="pack://application:,,,/Images/logo.png"/>
+            <TextBlock 
+                Margin="50,0"
+                FontSize="16"
+                FontWeight="Bold"
+                Text="ID"/>
+            <dxe:ComboBoxEdit 
+                Height="60" Margin="50,8"
+                HorizontalContentAlignment="Center"
+                FontSize="18"
+                FontWeight="Bold"
+                AllowDefaultButton="False"
+                ItemsSource="{Binding UserList}"
+                IsEnabled="{Binding IsConnected}"
+                EditValue="{Binding SelectedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <dxe:ComboBoxEdit.ItemContainerStyle>
+                    <Style TargetType="{x:Type dxe:ComboBoxEditItem}">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                </dxe:ComboBoxEdit.ItemContainerStyle>
+                <dxe:ComboBoxEdit.Buttons>
+                    <dxe:ButtonInfo IsDefaultButton="True">
+                        <dxe:ButtonInfo.ContentTemplate>
+                            <DataTemplate>
+                                <Grid Width="34" Height="34">
+                                    <dx:DXImage Source="{dx:DXImage 'SvgImages/XAF/Action_Sorting_Descending.svg'}"
+                                                Width="26" Height="26"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center">
+                                        <!--<dx:WpfSvgPalette.Palette>
+                                            <dx:WpfSvgPalette OverridesThemeColors="True">
+                                                <SolidColorBrush x:Key="Yellow" Color="DimGray"/>
+                                            </dx:WpfSvgPalette>
+                                        </dx:WpfSvgPalette.Palette>-->
+                                    </dx:DXImage>
+                                </Grid>
+                            </DataTemplate>
+                        </dxe:ButtonInfo.ContentTemplate>
+                        
+                    </dxe:ButtonInfo>
+                </dxe:ComboBoxEdit.Buttons>
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:EventToCommand 
+                        EventName="PreviewKeyDown"
+                        Command="{Binding EnterCommand}"
+                        PassEventArgsToCommand="True" />
+                </dxmvvm:Interaction.Behaviors>
+            </dxe:ComboBoxEdit>
+            <TextBlock 
+                Margin="50,0"
+                FontSize="16"
+                FontWeight="Bold"
+                Text="Password"/>
+            <dxe:PasswordBoxEdit
+                Height="60" Margin="50,8"
+                FontSize="18"
+                VerticalContentAlignment="Center" 
+                HorizontalContentAlignment="Center"
+                IsEnabled="{Binding IsConnected}"
+                EditValue="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:EventToCommand 
+                        EventName="PreviewKeyDown"
+                        Command="{Binding EnterCommand}"
+                        PassEventArgsToCommand="True" />
+                </dxmvvm:Interaction.Behaviors>
+            </dxe:PasswordBoxEdit>
+
+            <dx:SimpleButton 
+                Content="Login"
+                Height="60" Margin="50,8"
+                FontSize="18"
+                FontWeight="Bold"
+                IsEnabled="{Binding IsConnected}"
+                Style="{StaticResource PrimaryButtonStyle}"
+                Command="{Binding LoginCommand}"/>
+
+            <dx:SimpleButton 
+                Content="Connect"
+                FontSize="18"
+                FontWeight="Bold"
+                Height="60" Margin="50,8"
+                Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Refresh.svg'}"
+                Command="{Binding ConnectCommand}"/>
+
+            <StackPanel Grid.Column="1" 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Right" 
+                        Margin=" 50,8">
+                <dx:SimpleButton 
+                Background="Transparent"
+                BorderThickness="0"
+                HorizontalAlignment="Right"
+                Glyph="{dx:DXImage 'SvgImages/Icon Builder/Security_Key.svg'}"
+                GlyphWidth="45" GlyphHeight="45"
+                Width="60" Height="60" Margin="16,0"
+                Command="{Binding RecoveryCommand}"/>
+                <dx:SimpleButton 
+                Background="Transparent"
+                BorderThickness="0"
+                HorizontalAlignment="Right"
+                Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Settings.svg'}"
+                GlyphWidth="45" GlyphHeight="45"
+                Width="60" Height="60"
+                Command="{Binding SettingCommand}"/>
+            </StackPanel>
+
+
+        </StackPanel>
+        <ctrl:LoadingIndicator 
+            Grid.Column="1"
+            Grid.ColumnSpan="1"
+            Panel.ZIndex="999"
+            Visibility="{Binding IsLoading, Converter={dxmvvm:BooleanToVisibilityConverter}}"/>
+    </Grid>
+</UserControl>

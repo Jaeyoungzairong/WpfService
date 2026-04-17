@@ -1,0 +1,391 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LangVersion>9</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{144670CB-6396-488C-A76D-2E03A3B69E78}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WpfService</RootNamespace>
+    <AssemblyName>WpfService</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Mvvm.v21.2">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.Desktop.v21.2" />
+    <Reference Include="DevExpress.Data.v21.2" />
+    <Reference Include="DevExpress.Printing.v21.2.Core" />
+    <Reference Include="DevExpress.Xpf.Charts.v21.2, Version=21.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 21.2\Components\Bin\Framework\DevExpress.Xpf.Charts.v21.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Core.v21.2" />
+    <Reference Include="DevExpress.Xpf.Dialogs.v21.2, Version=21.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 21.2\Components\Bin\Framework\DevExpress.Xpf.Dialogs.v21.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v21.2, Version=21.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 21.2\Components\Bin\Framework\DevExpress.Xpf.Grid.v21.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Grid.v21.2.Core, Version=21.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.PropertyGrid.v21.2, Version=21.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 21.2\Components\Bin\Framework\DevExpress.Xpf.PropertyGrid.v21.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Xpf.Themes.Office2019Colorful.v21.2" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Behaviors\GridVisibleColumnsBehavior.cs" />
+    <Compile Include="Controls\ClockControl.xaml.cs">
+      <DependentUpon>ClockControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CommonPropertyGrid.xaml.cs">
+      <DependentUpon>CommonPropertyGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Assays.cs" />
+    <Compile Include="Models\Config.cs" />
+    <Compile Include="Models\Experiments.cs" />
+    <Compile Include="Models\ChartSeries.cs" />
+    <Compile Include="Services\Dialog.cs" />
+    <Compile Include="Controls\BackButton.xaml.cs">
+      <DependentUpon>BackButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LoadingIndicator.xaml.cs">
+      <DependentUpon>LoadingIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CommonParams.cs" />
+    <Compile Include="Models\CuvetteParams.cs" />
+    <Compile Include="Models\DnaParams.cs" />
+    <Compile Include="Models\UvParams.cs" />
+    <Compile Include="Services\NetworkManager.cs" />
+    <Compile Include="Services\Recovery.cs" />
+    <Compile Include="Services\XmlHelper.cs" />
+    <Compile Include="ViewModels\Base\DialogViewModelBase.cs" />
+    <Compile Include="ViewModels\Base\ChartViewModelBase.cs" />
+    <Compile Include="ViewModels\CuvetteChartViewModel.cs" />
+    <Compile Include="ViewModels\DataViewModel.cs" />
+    <Compile Include="ViewModels\DeviceViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\CuvetteInputDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\DnaInputDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\EndExperimentDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\InformationDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\NetworkDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\ParameterDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\PasswordDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\SpectrometerDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\UvInputDialogViewModel.cs" />
+    <Compile Include="ViewModels\DnaChartViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\LogViewModel.cs" />
+    <Compile Include="ViewModels\ParameterViewModel.cs" />
+    <Compile Include="ViewModels\RecoveryViewModel.cs" />
+    <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\SpectrometerViewModel.cs" />
+    <Compile Include="ViewModels\UvChartViewModel.cs" />
+    <Compile Include="Views\CuvetteChartView.xaml.cs">
+      <DependentUpon>CuvetteChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataView.xaml.cs">
+      <DependentUpon>DataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\CuvetteInputDialogView.xaml.cs">
+      <DependentUpon>CuvetteInputDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\DnaInputDialogView.xaml.cs">
+      <DependentUpon>DnaInputDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\EndExperimentDialogView.xaml.cs">
+      <DependentUpon>EndExperimentDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\InformationDialogView.xaml.cs">
+      <DependentUpon>InformationDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\NetworkDialogView.xaml.cs">
+      <DependentUpon>NetworkDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\ParameterDialogView.xaml.cs">
+      <DependentUpon>ParameterDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\PasswordDialogView.xaml.cs">
+      <DependentUpon>PasswordDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\SpectrometerDialogView.xaml.cs">
+      <DependentUpon>SpectrometerDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\UvInputDialogView.xaml.cs">
+      <DependentUpon>UvInputDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DnaChartView.xaml.cs">
+      <DependentUpon>DnaChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceView.xaml.cs">
+      <DependentUpon>DeviceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LogView.xaml.cs">
+      <DependentUpon>LogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ParameterView.xaml.cs">
+      <DependentUpon>ParameterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RecoveryView.xaml.cs">
+      <DependentUpon>RecoveryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpectrometerView.xaml.cs">
+      <DependentUpon>SpectrometerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UvChartView.xaml.cs">
+      <DependentUpon>UvChartView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\BackButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ClockControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CommonPropertyGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LoadingIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Services\ApiClient.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ApiResponse.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\LoadingIndicatorView.xaml.cs">
+      <DependentUpon>LoadingIndicatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\CuvetteChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\CuvetteInputDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\DnaInputDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\EndExperimentDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\InformationDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\NetworkDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\ParameterDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\PasswordDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\SpectrometerDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\UvInputDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DnaChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoadingIndicatorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ParameterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RecoveryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SpectrometerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UvChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Resource Include="Images\logo.png" />
+    <Resource Include="Images\login_background.png" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="app.manifest" />
+    <Content Include="assays.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config.data">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\DevExpress.Mvvm.CodeGenerators.22.1.1\analyzers\dotnet\cs\DevExpress.Mvvm.CodeGenerators.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ds-dna.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bca.png" />
+    <Resource Include="Images\biuret.png" />
+    <Resource Include="Images\bradford.png" />
+    <Resource Include="Images\custom-factor.png" />
+    <Resource Include="Images\direct-uv.png" />
+    <Resource Include="Images\end-point.png" />
+    <Resource Include="Images\kinetic.png" />
+    <Resource Include="Images\lowry.png" />
+    <Resource Include="Images\od600.png" />
+    <Resource Include="Images\oligo-dna.png" />
+    <Resource Include="Images\others.png" />
+    <Resource Include="Images\rna.png" />
+    <Resource Include="Images\spectrum.png" />
+    <Resource Include="Images\ss-dna.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
